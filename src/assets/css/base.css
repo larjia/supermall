@@ -43,7 +43,7 @@ a {
 }
 
 .clear-fix {
-  zoom: 1;
+  /* zoom: 1; */
 }
 
 .left {
