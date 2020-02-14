@@ -87,7 +87,6 @@ export default {
       }
     },
     backClick () {
-      console.log('clicked')
       this.$refs.scroll.scrollTo(0, 0)
     },
     // contentScroll (position) {
@@ -109,7 +108,6 @@ export default {
     getHomeGoods (type) {
       const page = this.goods[type].page + 1
       getHomeGoods(type, page).then(res => {
-        // console.log(res)
         this.goods[type].list.push(...res.data.list)
         this.goods[type].page += 1
 

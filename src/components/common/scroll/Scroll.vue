@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     scrollTo (x, y, time = 300) {
-      console.log('in scrollTo')
       this.scroll.scrollTo(x, y, time)
     },
     finishPullUp () {
