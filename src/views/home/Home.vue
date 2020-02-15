@@ -7,6 +7,7 @@
       ref="scroll"
       :probe-type="3"
       :pull-up-load="true"
+      @scroll="contentScroll"
       @pullingUp="loadMore">
       <home-swiper :banners="banners"/>
       <recommend-view :recommends="recommends"/>
@@ -14,7 +15,7 @@
       <tab-control :titles="['流行', '新款', '精选']" @tabClick="tabClick"></tab-control>
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
-    <back-top @click.native="backClick" />
+    <back-top @click.native="backClick" v-show="isShowBackTop" />
   </div>
 </template>
 
@@ -52,7 +53,8 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
-      currentType: 'pop'
+      currentType: 'pop',
+      isShowBackTop: false
     }
   },
   computed: {
@@ -89,9 +91,9 @@ export default {
     backClick () {
       this.$refs.scroll.scrollTo(0, 0)
     },
-    // contentScroll (position) {
-    //   this.$refs.scroll.scrollTo(0, 0)
-    // },
+    contentScroll (position) {
+      this.isShowBackTop = (-position.y) > 1000
+    },
     loadMore () {
       this.getHomeGoods(this.currentType)
     },
