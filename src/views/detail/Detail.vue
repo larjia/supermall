@@ -10,6 +10,7 @@
       <detail-goods-info :detail-info="detailInfo"></detail-goods-info>
       <detail-param-info :param-info="paramInfo"></detail-param-info>
       <detail-comment-info :comment-info="commentInfo"></detail-comment-info>
+      <detail-recommend-info :recommend-info="recommendInfo"></detail-recommend-info>
     </scroll>
   </div>
 </template>
@@ -24,8 +25,9 @@ import DetailShopInfo from './childComps/DetailShopInfo'
 import DetailGoodsInfo from './childComps/DetailGoodsInfo'
 import DetailParamInfo from './childComps/DetailParamInfo'
 import DetailCommentInfo from './childComps/DetailCommentInfo'
+import DetailRecommendInfo from './childComps/DetailRecommendInfo'
 
-import { getDetail, Goods, Shop, GoodsParam } from '@/network/detail'
+import { getDetail, Goods, Shop, GoodsParam, getRecommend } from '@/network/detail'
 
 export default {
   name: 'Detail',
@@ -37,6 +39,7 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailCommentInfo,
+    DetailRecommendInfo,
     Scroll
   },
   data () {
@@ -47,7 +50,8 @@ export default {
       shop: {},
       detailInfo: {},
       paramInfo: {},
-      commentInfo: {}
+      commentInfo: {},
+      recommendInfo: []
     }
   },
   created () {
@@ -73,6 +77,11 @@ export default {
       if (data.rate.list) {
         this.commentInfo = data.rate.list[0]
       }
+    })
+
+    // 3. 请求推荐书籍
+    getRecommend().then(res => {
+      this.recommendInfo = res.data.list
     })
   }
 }
