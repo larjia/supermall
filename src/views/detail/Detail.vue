@@ -4,9 +4,10 @@
     <scroll class="content"
       ref="scroll"
       :prob-type="3">
-      <detail-swiper :top-images="topImages"/>
-      <detail-base-info :goods="goods"/>
-      <detail-shop-info :shop="shop"/>
+      <detail-swiper :top-images="topImages"></detail-swiper>
+      <detail-base-info :goods="goods"></detail-base-info>
+      <detail-shop-info :shop="shop"></detail-shop-info>
+      <detail-goods-info :detail-info="detailInfo"></detail-goods-info>
     </scroll>
   </div>
 </template>
@@ -18,6 +19,7 @@ import DetailNavBar from './childComps/DetailNavBar'
 import DetailSwiper from './childComps/DetailSwiper'
 import DetailBaseInfo from './childComps/DetailBaseInfo'
 import DetailShopInfo from './childComps/DetailShopInfo'
+import DetailGoodsInfo from './childComps/DetailGoodsInfo'
 
 import { getDetail, Goods, Shop } from '@/network/detail'
 
@@ -28,6 +30,7 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailGoodsInfo,
     Scroll
   },
   data () {
@@ -35,7 +38,8 @@ export default {
       iid: null,
       topImages: [],
       goods: {},
-      shop: {}
+      shop: {},
+      detailInfo: {}
     }
   },
   created () {
@@ -44,13 +48,17 @@ export default {
 
     // 2. 根据iid请求详情数据
     getDetail(this.iid).then(res => {
+      console.log(res)
+      // 2.1 - 获取结果
       const data = res.result
-      // 1 - 获取顶部的图片轮播数据
+      // 2.2 - 获取顶部的图片轮播数据
       this.topImages = res.result.itemInfo.topImages
-      // 2 - 获取商品信息
+      // 2.3 - 获取商品信息
       this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
-      // 3 - 创建店铺信息的对象
+      // 2.4 - 创建店铺信息的对象
       this.shop = new Shop(data.shopInfo)
+      // 2.5 - 获取商品信息
+      this.detailInfo = data.detailInfo
     })
   }
 }

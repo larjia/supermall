@@ -48,7 +48,9 @@ export default {
   },
   filters: {
     sellCountFilter: function (value) {
-      if (value < 10000) return value
+      if (value < 10000) {
+        return value
+      }
       return (value / 10000).toFixed(1) + '万'
     }
   }
@@ -71,6 +73,8 @@ export default {
   .shop-top img {
     width: 45px;
     height: 45px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
   }
 
   .shop-top .title {
@@ -90,7 +94,7 @@ export default {
 
   .shop-middle-left {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     color: #333;
     text-align: center;
     border-right: 1px solid rgba(0,0,0,0.1);
@@ -121,6 +125,10 @@ export default {
 
   .shop-middle-right .score {
     color: #5ea732;
+  }
+
+  .shop-middle-right .score-better {
+    color: #f13e3a;
   }
 
   .shop-middle-right .better span {

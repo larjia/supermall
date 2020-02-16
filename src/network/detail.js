@@ -27,7 +27,7 @@ export class Shop {
     this.logo = shopInfo.shopLogo
     this.name = shopInfo.name
     this.fans = shopInfo.cFans
-    this.sells = shopInfo.cSell
+    this.sells = shopInfo.cSells
     this.score = shopInfo.score
     this.goodsCount = shopInfo.cGoods
   }
