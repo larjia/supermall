@@ -3,7 +3,8 @@
     <detail-nav-bar/>
     <scroll class="content"
       ref="scroll"
-      :prob-type="3">
+      @scroll="contentScroll"
+      :probe-type="3">
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
@@ -12,11 +13,16 @@
       <detail-comment-info :comment-info="commentInfo"></detail-comment-info>
       <detail-recommend-info :recommend-info="recommendInfo"></detail-recommend-info>
     </scroll>
+    <detail-bottom-bar></detail-bottom-bar>
+    <back-top @click.native="backTop" class="back-top" v-show="showBackTop">
+      <img src="~@/assets/img/common/top.png" alt="">
+    </back-top>
   </div>
 </template>
 
 <script>
 import Scroll from '@/components/common/scroll/Scroll'
+import BackTop from '@/components/content/backTop/BackTop'
 
 import DetailNavBar from './childComps/DetailNavBar'
 import DetailSwiper from './childComps/DetailSwiper'
@@ -26,8 +32,10 @@ import DetailGoodsInfo from './childComps/DetailGoodsInfo'
 import DetailParamInfo from './childComps/DetailParamInfo'
 import DetailCommentInfo from './childComps/DetailCommentInfo'
 import DetailRecommendInfo from './childComps/DetailRecommendInfo'
+import DetailBottomBar from './childComps/DetailBottomBar'
 
 import { getDetail, Goods, Shop, GoodsParam, getRecommend } from '@/network/detail'
+import { backTopMixin } from '@/common/mixin'
 
 export default {
   name: 'Detail',
@@ -40,8 +48,11 @@ export default {
     DetailParamInfo,
     DetailCommentInfo,
     DetailRecommendInfo,
-    Scroll
+    DetailBottomBar,
+    Scroll,
+    BackTop
   },
+  mixins: [backTopMixin],
   data () {
     return {
       iid: null,
@@ -83,6 +94,12 @@ export default {
     getRecommend().then(res => {
       this.recommendInfo = res.data.list
     })
+  },
+  methods: {
+    contentScroll (position) {
+      // 监听backtop的显示
+      this.showBackTop = position.y < -1000
+    }
   }
 }
 </script>
@@ -91,7 +108,7 @@ export default {
   #detail {
     height: 100vh;
     position: relative;
-    /* z-index: 1; */
+    z-index: 1;
     background-color: #fff;
   }
 
@@ -99,5 +116,11 @@ export default {
     position: absolute;
     top: 44px;
     bottom: 60px;
+  }
+
+  .back-top {
+    position: fixed;
+    right: 10px;
+    bottom: 65px;
   }
 </style>

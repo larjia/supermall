@@ -32,6 +32,12 @@ export default {
   components: {
     TabBarItem,
     TabBar
+  },
+  computed: {
+    // isDetailView () {
+    //   console.log(this.$route)
+    //   return this.$rourt.indexOf('detail') !== -1
+    // }
   }
 }
 </script>
