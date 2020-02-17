@@ -13,7 +13,7 @@
       <detail-comment-info :comment-info="commentInfo"></detail-comment-info>
       <detail-recommend-info :recommend-info="recommendInfo"></detail-recommend-info>
     </scroll>
-    <detail-bottom-bar></detail-bottom-bar>
+    <detail-bottom-bar @addToCart="addToCart"></detail-bottom-bar>
     <back-top @click.native="backTop" class="back-top" v-show="showBackTop">
       <img src="~@/assets/img/common/top.png" alt="">
     </back-top>
@@ -99,6 +99,18 @@ export default {
     contentScroll (position) {
       // 监听backtop的显示
       this.showBackTop = position.y < -1000
+    },
+    addToCart () {
+      // 1. 创建对象
+      const product = {}
+      // 2. 对象信息
+      product.iid = this.iid
+      product.imgURL = this.topImages[0]
+      product.title = this.goods.title
+      product.desc = this.goods.desc
+      product.newPrice = this.goods.realPrice
+      // 3. 添加到Store中
+      this.$store.commit('addCart', product)
     }
   }
 }
