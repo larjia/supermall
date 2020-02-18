@@ -2,6 +2,7 @@
   <div id="cart">
     <nav-bar class="nav-bar"><div slot="center">购物车({{cartCount}})</div></nav-bar>
     <cart-list class="cart-list" :cart-list="cartList"></cart-list>
+    <bottom-bar></bottom-bar>
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 import NavBar from '@/components/common/navbar/NavBar'
 
 import CartList from './childComps/CartList'
+import BottomBar from './childComps/BottomBar'
 
 export default {
   name: 'Cart',
   components: {
     NavBar,
-    CartList
+    CartList,
+    BottomBar
   },
   computed: {
     cartList () {
